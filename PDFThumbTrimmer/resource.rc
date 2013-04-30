@@ -1,0 +1,48 @@
+// NOTE that this file is written totally by hands.  It may not be
+// compatible with a GUI-based resource editor.
+
+#include <windows.h>
+
+#define VERSION_NUM 1,0,7,0
+#define VERSION_STR "1.0.7.0\0"
+
+// We need to supplement a missing define here for compatibility
+// reasons.
+
+#ifndef SUBLANG_DEFAULT
+#define SUBLANG_DEFAULT 1
+#endif
+
+// Language neutral resources come first.
+
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION		VERSION_NUM
+PRODUCTVERSION	VERSION_NUM
+FILEOS			VOS_NT_WINDOWS32
+FILETYPE		VFT_DLL
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK	"000004E4"	// Neutral/Neutral/CP1252
+    BEGIN
+      VALUE "FileDescription",	"PDF Thumbnail Trimmer Shell Extension\0"
+      VALUE "FileVersion",		VERSION_STR
+#if _M_IX86
+      VALUE "InternalName",		"PDFThumbTrimmer\0"
+      VALUE "OriginalFilename",	"PDFThumbTrimmer.dll\0"
+#else
+      VALUE "InternalName",		"PDFThumbTrimmer64\0"
+      VALUE "OriginalFilename",	"PDFThumbTrimmer64.dll\0"
+#endif
+      VALUE "ProductName",		"Alissa's PDF Thumbnail Trimmer\0"
+      VALUE "ProductVersion",	VERSION_STR
+      VALUE "LegalCopyright",	"Written by Alissa Sabre\0"
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x0000, 0x04E4
+  END
+END

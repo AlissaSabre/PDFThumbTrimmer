@@ -1,0 +1,31 @@
+SRCDIR=../PDFThumbTrimmer
+
+LIBS=-lshell32 -lole32 -luuid -lgdi32
+SRCS=$(wildcard $(SRCDIR)/*.cpp) iid.cpp 
+HDRS=$(wildcard $(SRCDIR)/*.h)
+DEF=comdll.def
+RC=$(SRCDIR)/resource.rc
+
+M32=i686-w64-mingw32
+M64=x86_64-w64-mingw32
+
+CXX32=$(M32)-g++
+CXX64=$(M64)-g++
+CXXFLAGS=-O2 -Wall -mdll -Wl,-enable-stdcall-fixup -s
+
+RES=r.ro
+RC32=$(M32)-windres
+RC64=$(M64)-windres
+RCFLAGS=-Ocoff -o$(RES)
+
+all : PDFThumbTrimmer.dll PDFThumbTrimmer64.dll
+
+PDFThumbTrimmer.dll : $(SRCS) $(HDRS) $(DEF) $(RC)
+	$(RC32) $(RCFLAGS) $(RC)
+	$(CXX32) $(CXXFLAGS) -o $@ $(SRCS) $(RES) $(DEF) $(LIBS)
+	rm -f $(RES)
+
+PDFThumbTrimmer64.dll : $(SRCS) $(HDRS) $(DEF) $(RC)
+	$(RC64) $(RCFLAGS) $(RC)
+	$(CXX64) $(CXXFLAGS) -o $@ $(SRCS) $(RES) $(DEF) $(LIBS)
+	rm -f $(RES)
