@@ -11,8 +11,6 @@ Alissa's PDF Thumbnail Trimmer (or PDFThumbTrimmer for short) is a small Windows
 The Problem
 ----
 
-Windows Explorer shows files on the desktop using thumbnails.  It also provides a thumbnail view for folder windows.
-
 Windows has a nice feature to show thumbnails (small preview pictures) of files on the Desktop or other folder views.  Each thumbnail is provided by the corresponding application program for the file.  If it is a PDF file, and you have installed Adobe Reader or Acrobat on your PC as a default PDF viewer program, it generates a thumbnail for each PDF file behind the scenes.
 
 Unfortunately, current Adobe Reader has two problems generating the thumbnail.  PDFThumbTrimmer fixes the issue.
