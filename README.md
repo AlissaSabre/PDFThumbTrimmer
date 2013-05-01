@@ -6,7 +6,7 @@ A Windows Shell extension for better PDF thumbnail handling
 What is this?
 ----
 
-Alissa's PDF Thumbnail Trimmer (or PDFThumbTrimmer for short) is a small Windows program to improve the desktop thumbnails from PDF files by Adobe Reader or Acrobat used on Windows.
+Alissa's PDF Thumbnail Trimmer (or PDFThumbTrimmer for short) is a small Windows program to improve the desktop thumbnails for PDF files when used with Adobe Reader or Acrobat.
 
 The Problem
 ----
