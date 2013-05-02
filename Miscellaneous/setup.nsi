@@ -63,7 +63,7 @@ VIAddVersionKey InternalName    "PDFThumbTrimmer-Setup"
 
 ; MUI end ------
 
-Name "${PRODUCT_NAME}
+Name "${PRODUCT_NAME}"
 OutFile "PDFThumbTrimmer-Setup.exe"
 InstallDir "$PROGRAMFILES\Alissa\PDFThumbTrimmer"
 ShowInstDetails hide
