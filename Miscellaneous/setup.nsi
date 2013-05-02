@@ -7,7 +7,7 @@ SetCompressor /SOLID /FINAL lzma
 
 ; Product Identity and other general config
 !define PRODUCT_NAME "Alissa's PDF Thumbnail Trimmer"
-!define PRODUCT_VERSION "1.0.7.0"
+!define PRODUCT_VERSION "1.0.9.0"
 !define PRODUCT_PUBLISHER "Alissa Sabre"
 !define PRODUCT_WEB_SITE "http://alissa-sabre.cocolog-nifty.com/"
 
@@ -63,7 +63,7 @@ VIAddVersionKey InternalName    "PDFThumbTrimmer-Setup"
 
 ; MUI end ------
 
-Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
+Name "${PRODUCT_NAME}
 OutFile "PDFThumbTrimmer-Setup.exe"
 InstallDir "$PROGRAMFILES\Alissa\PDFThumbTrimmer"
 ShowInstDetails hide
