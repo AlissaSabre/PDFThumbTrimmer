@@ -88,10 +88,10 @@ ${If} $LANGUAGE == ${LANG_JAPANESE}
   File "${PRODUCT_README_JA}"
 ${EndIf}
 
+
   ; Redirect the PDF IExtractImage settings to our class
-  ; Note that Adobe Reader 8.X through 10.X use "*.7" ProgID and 11.X uses "*.11".
-  WriteRegStr    HKCR "AcroExch.Document.7\ShellEx\${IID_IExtractImage}" ""             "${CLSID_PDFThumbTrimmer}"
-  WriteRegStr    HKCR "AcroExch.Document.11\ShellEx\${IID_IExtractImage}" ""            "${CLSID_PDFThumbTrimmer}"
+  ReadRegStr  $0 HKCR "AcroExch.Document\CurVer"                         ""
+  WriteRegStr    HKCR "$0\ShellEx\${IID_IExtractImage}"                  ""             "${CLSID_PDFThumbTrimmer}"
 
   ; COM registry entries for 32 bit DLL
   WriteRegStr    HKCR "CLSID\${CLSID_PDFThumbTrimmer}"                   ""             "${PRODUCT_NAME}"
@@ -150,9 +150,8 @@ FunctionEnd
 Section Uninstall
 
   ; Restore the original IExtractImage handler for PDF files.
-  ; Note that Adobe Reader 8.X through 10.X use "*.7" ProgID and 11.X uses "*.11".
-  WriteRegStr HKCR "AcroExch.Document.7\ShellEx\${IID_IExtractImage}" "" "${CLSID_PDFShellExtension}"
-  WriteRegStr HKCR "AcroExch.Document.11\ShellEx\${IID_IExtractImage}" "" "${CLSID_PDFShellExtension}"
+  ReadRegStr $0 HKCR "AcroExch.Document\CurVer"        ""
+  WriteRegStr   HKCR "$0\ShellEx\${IID_IExtractImage}" "" "${CLSID_PDFShellExtension}"
 
   ; Remove PDFThumbTrimmer from COM registry.
   DeleteRegKey HKCR "CLSID\${CLSID_PDFTHumbTrimmer}"
