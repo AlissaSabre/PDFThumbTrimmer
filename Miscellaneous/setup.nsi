@@ -77,9 +77,14 @@ ShowUnInstDetails hide
 # SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, NULL, NULL);
 !define SHChangeNotify "System::Call 'shell32.dll::SHChangeNotify(i, i, i, i) v (0x08000000, 0, 0, 0)'"
 
+LangString RegisterMessage ${LANG_ENGLISH}  "Register: ${PRODUCT_NAME}"
+LangString RegisterMessage ${LANG_JAPANESE} "登録: ${PRODUCT_NAME}"
+
 Section "MainSection" SEC01
   SetOutPath "$INSTDIR"
   SetOverwrite on
+
+  Call detect_reader
 
   File "..\Release\PDFThumbTrimmer.dll"
 ${If} ${RunningX64}
@@ -91,10 +96,13 @@ ${If} $LANGUAGE == ${LANG_JAPANESE}
   File "${PRODUCT_README_JA}"
 ${EndIf}
 
+  DetailPrint "$(RegisterMessage)"
 
   ; Redirect the PDF IExtractImage settings to our class
+  push "$0"
   ReadRegStr  $0 HKCR "AcroExch.Document\CurVer"                         ""
   WriteRegStr    HKCR "$0\ShellEx\${IID_IExtractImage}"                  ""             "${CLSID_PDFThumbTrimmer}"
+  pop $0
 
   ; COM registry entries for 32 bit DLL
   WriteRegStr    HKCR "CLSID\${CLSID_PDFThumbTrimmer}"                   ""             "${PRODUCT_NAME}"
@@ -118,6 +126,28 @@ ${If} ${RunningX64}
 ${EndIf}
 
 SectionEnd
+
+LangString ReaderNotFound  ${LANG_ENGLISH}  "Adobe Reader was not detected on the system.$\r$\nYou need Adobe Reader to use this program."
+LangString ReaderNotFound  ${LANG_JAPANESE} "Adobe Reader がみつかりません。$\r$\nこのプログラムには、Adobe Reader が必要です。"
+
+; Make sure an Adobe Reader is installed.  Abort otherwise.
+Function detect_reader
+  push "$0"
+  push "$1"
+  ReadRegStr  $0 HKCR "AcroExch.Document\CurVer"                         ""
+  IfErrors ERR
+  StrCmp $0 "" ERR
+  ReadRegStr  $1 HKCR "$0\ShellEx\${IID_IExtractImage}"                  ""
+  IfErrors ERR
+  StrCmp $1 ${CLSID_PDFShellExtension} OK
+  StrCmp $1 ${CLSID_PDFThumbTrimmer} OK
+Err:
+  MessageBox MB_OK "$(ReaderNotFound)"
+  Abort
+OK:  
+  pop $1
+  pop $0
+FunctionEnd
 
 LangString LocalizedReadme ${LANG_ENGLISH}  "${PRODUCT_README_EN}"
 LangString LocalizedReadme ${LANG_JAPANESE} "${PRODUCT_README_JA}"
