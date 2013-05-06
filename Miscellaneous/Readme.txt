@@ -42,8 +42,8 @@ is a PDF file, and you have installed Adobe Reader on your PC as a
 default PDF viewer program, a component of the Reader generates a
 thumbnail for each PDF file behind the scenes.
 
-Unfortunately, current Adobe Reader (version 8.X through 10.1.1) has
-some problems generating the thumbnail.
+Unfortunately, current Adobe Reader (including at least versions 8.X 
+through 11.0.2) has some problems generating the thumbnail.
 
 Alissa's PDF Thumbnail Trimmer slightly modifies the behaviour of
 Adobe Reader's thumbnail generation, solving the following two major
@@ -98,11 +98,11 @@ Windows 7 (pre-SP1 32 bit and SP1 64 bit)
 It should work on Windows Vista 32/64 bit.  It *may* also work on
 Windows XP SP2 or before, or Windows XP x64 Edition.
 
-You need to install Adobe Reader version 9 or 10 *before* installing
-Alissa's PDF Thumbnail Trimmer.  Adobe Reader version 8 *may* work;
-I'm not sure.  (Although Adobe Reader version 8 is known to have some
-unfixed security bugs and not recommended.)  Adobe Acrobat may also
-work.
+You need to install Adobe Reader version 9, 10, or 11 *before* 
+installing Alissa's PDF Thumbnail Trimmer.  Adobe Reader version 8 
+*may* work; I'm not sure.  (Adobe Reader version 8 is known to have 
+some unfixed security bugs and not recommended.)  Adobe Acrobat may 
+also work.
 
 4. Installing and Uninstalling
 
@@ -121,7 +121,7 @@ running the installer.
 
 The installer will ask you for a location (folder) where the files are
 copied.  Alissa's PDF Thumbnail Trimmer needs to be installed on a 32
-bit folder; i.e., you can't install it on "c:\Program Files" on 64 bit
+bit folder; i.e., you can't install it on "C:\Program Files" on 64 bit
 Windows, but you need to install it on "C:\Program Files (x86)"
 folder.  On 32 bit Windows, all folders are 32 bit, and you don't need
 to worry about this point.
@@ -141,7 +141,8 @@ installation folder.
 
 The installer creates several new registry entries and modifies some
 existing entries.  You need to revert the registry changes.  Just
-removing installed files is not sufficient.
+removing installed files is not sufficient.  It is not recommended
+to uninstall it manually without invoking the uninstaller.
 
 4.3 Upgrading Adobe Reader
 
@@ -152,11 +153,10 @@ don't need to uninstall it before the re-install.
 4.4 Source Files
 
 The source files of Alissa's PDF Thumbnail Trimmer is not included in
-the binary distribution but should be available on a same location
-where the installer binary is.  As of this writing, the primary
-distribution point of the source files and the latest executable
-installer are on the following skydrive page:
-http://cid-88858bc052aea782.skydrive.live.com/self.aspx/Public/PDFThumbTrimmer
+the binary distribution but is published separately.  As of this 
+writing, the source is hoted by Github, and you can download it on
+the following URL:
+
 
 5. Envoi
 
