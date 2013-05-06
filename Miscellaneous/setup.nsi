@@ -46,6 +46,7 @@ VIAddVersionKey InternalName    "PDFThumbTrimmer-Setup"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\win-uninstall.ico"
 
 ; Welcome page
+!define MUI_PAGE_CUSTOMFUNCTION_LEAVE on_page_welcome_leave
 !insertmacro MUI_PAGE_WELCOME
 ; Directory page
 !insertmacro MUI_PAGE_DIRECTORY
@@ -63,6 +64,28 @@ VIAddVersionKey InternalName    "PDFThumbTrimmer-Setup"
 ; list minimum, with the first language to be English.
 !insertmacro MUI_LANGUAGE "English"
 !insertmacro MUI_LANGUAGE "Japanese"
+
+LangString ReaderNotFound  ${LANG_ENGLISH}  "Adobe Reader was not detected on the system.$\r$\n$\r$\nYou need to install Adobe Reader before installing this program."
+LangString ReaderNotFound  ${LANG_JAPANESE} "Adobe Reader がみつかりません。$\r$\n$\r$\nこのプログラムをインストールする前に、Adobe Reader をインストールしておく必要があります。"
+
+Function on_page_welcome_leave
+  ; Make sure an Adobe Reader is installed.
+  push "$0"
+  push "$1"
+  ReadRegStr  $0 HKCR "AcroExch.Document\CurVer"                         ""
+  IfErrors ERR
+  StrCmp $0 "" ERR
+  ReadRegStr  $1 HKCR "$0\ShellEx\${IID_IExtractImage}"                  ""
+  IfErrors ERR
+  StrCmp $1 ${CLSID_PDFShellExtension} OK
+  StrCmp $1 ${CLSID_PDFThumbTrimmer} OK
+Err:
+  MessageBox MB_OK "$(ReaderNotFound)"
+  Quit
+OK:  
+  pop $1
+  pop $0
+FunctionEnd
 
 ; MUI end ------
 
@@ -83,8 +106,6 @@ LangString RegisterMessage ${LANG_JAPANESE} "登録: ${PRODUCT_NAME}"
 Section "MainSection" SEC01
   SetOutPath "$INSTDIR"
   SetOverwrite on
-
-  Call detect_reader
 
   File "..\Release\PDFThumbTrimmer.dll"
 ${If} ${RunningX64}
@@ -126,28 +147,6 @@ ${If} ${RunningX64}
 ${EndIf}
 
 SectionEnd
-
-LangString ReaderNotFound  ${LANG_ENGLISH}  "Adobe Reader was not detected on the system.$\r$\nYou need Adobe Reader to use this program."
-LangString ReaderNotFound  ${LANG_JAPANESE} "Adobe Reader がみつかりません。$\r$\nこのプログラムには、Adobe Reader が必要です。"
-
-; Make sure an Adobe Reader is installed.  Abort otherwise.
-Function detect_reader
-  push "$0"
-  push "$1"
-  ReadRegStr  $0 HKCR "AcroExch.Document\CurVer"                         ""
-  IfErrors ERR
-  StrCmp $0 "" ERR
-  ReadRegStr  $1 HKCR "$0\ShellEx\${IID_IExtractImage}"                  ""
-  IfErrors ERR
-  StrCmp $1 ${CLSID_PDFShellExtension} OK
-  StrCmp $1 ${CLSID_PDFThumbTrimmer} OK
-Err:
-  MessageBox MB_OK "$(ReaderNotFound)"
-  Abort
-OK:  
-  pop $1
-  pop $0
-FunctionEnd
 
 LangString LocalizedReadme ${LANG_ENGLISH}  "${PRODUCT_README_EN}"
 LangString LocalizedReadme ${LANG_JAPANESE} "${PRODUCT_README_JA}"
