@@ -1,5 +1,5 @@
 Alissa's PDF Thumbnail Trmmer
-                                   2011-10-15  Alissa Sabre
+                                   2013-5-7  Alissa Sabre
 
 
 ******************************************************************
@@ -127,8 +127,7 @@ folder.  On 32 bit Windows, all folders are 32 bit, and you don't need
 to worry about this point.
 
 Alissa's PDF Thumbnail Trimmer is a small program; you only need less
-than 100k bytes of free disk space.  (The largest footprint is the
-uninstaller, BTW. :-)
+than 200k bytes of free disk space.
 
 4.2 Uninstalling
 
@@ -153,10 +152,11 @@ don't need to uninstall it before the re-install.
 4.4 Source Files
 
 The source files of Alissa's PDF Thumbnail Trimmer is not included in
-the binary distribution but is published separately.  As of this 
-writing, the source is hoted by Github, and you can download it on
-the following URL:
+the binary distribution but is published separately.  As of this
+writing, the source is hoted by Github, and you will find it on the
+following URL:
 
+    https://github.com/AlissaSabre/PDFThumbTrimmer
 
 5. Envoi
 

@@ -10,7 +10,7 @@ SetCompressor /SOLID /FINAL lzma
 
 ; Product Identity and other general config
 !define PRODUCT_NAME "Alissa's PDF Thumbnail Trimmer"
-!define PRODUCT_VERSION "1.0.9.0"
+!define PRODUCT_VERSION "1.0.10.0"
 !define PRODUCT_PUBLISHER "Alissa Sabre"
 !define PRODUCT_WEB_SITE "http://alissa-sabre.cocolog-nifty.com/"
 
