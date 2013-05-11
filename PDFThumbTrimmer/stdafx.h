@@ -9,5 +9,6 @@
 // TODO: reference additional headers your program requires here
 
 #include <shobjidl.h>
+#include <shlobj.h>
 
 #include <new>

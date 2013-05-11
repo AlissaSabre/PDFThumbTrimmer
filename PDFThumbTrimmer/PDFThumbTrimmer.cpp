@@ -6,16 +6,27 @@
 PDFThumbTrimmer::PDFThumbTrimmer(IClassFactory *parentFactory)
 	: m_ref(1)
 {
+	HRESULT hr;
+
 	m_parent = NULL;
+	m_this_as_runnable_task = NULL;
+
 	if (!parentFactory) throw E_NOTIMPL;
-	HRESULT hr = parentFactory->CreateInstance(NULL, IID_IExtractImage, (LPVOID *)&m_parent);
+	hr = parentFactory->CreateInstance(NULL, IID_IExtractImage, (LPVOID *)&m_parent);
 	if (FAILED(hr)) throw hr;
+
+	hr = m_parent->QueryInterface(IID_IRunnableTask, (LPVOID *)&m_this_as_runnable_task);
+	if (FAILED(hr)) m_this_as_runnable_task = NULL;
+
 	InterlockedIncrement(&g_ref);
 }
 
 PDFThumbTrimmer::~PDFThumbTrimmer()
 {
 	InterlockedDecrement(&g_ref);
+
+	if (m_this_as_runnable_task) m_this_as_runnable_task->Release();
+
 	if (m_parent) m_parent->Release();
 	m_parent = NULL;
 }
@@ -34,6 +45,13 @@ STDMETHODIMP PDFThumbTrimmer::QueryInterface(REFIID riid, void **ppvObject)
 	if (IsEqualIID(riid, IID_IExtractImage))
 	{
 		*ppvObject = static_cast<IExtractImage *>(this);
+		this->AddRef();
+		return S_OK;
+	}
+
+	if (IsEqualIID(riid, IID_IRunnableTask) && m_this_as_runnable_task)
+	{
+		*ppvObject = static_cast<IRunnableTask *>(this);
 		this->AddRef();
 		return S_OK;
 	}
@@ -96,6 +114,7 @@ STDMETHODIMP PDFThumbTrimmer::SaveCompleted(LPCOLESTR pszFileName)
 STDMETHODIMP PDFThumbTrimmer::GetLocation(LPWSTR pszPathBuffer, DWORD cchMax, DWORD *pdwPriority, const SIZE *prgSize, DWORD dwRecClrDepth, DWORD *pdwFlags)
 {
 	HRESULT hr = m_parent->GetLocation(pszPathBuffer, cchMax, pdwPriority, prgSize, dwRecClrDepth, pdwFlags);
+#if 0
 	// I'm not sure how E_PENDING return from GetLocation and 
 	// IRunnableTasks interface meant to interact, primarily
 	// because the related MSDN pages are so cryptic, and 
@@ -103,6 +122,15 @@ STDMETHODIMP PDFThumbTrimmer::GetLocation(LPWSTR pszPathBuffer, DWORD cchMax, DW
 	// returning E_PENDING from my own thumbnail handler causes 
 	// a lot of troubles...
 	if (E_PENDING == hr) hr = S_OK;
+#else
+	// Well, I think this is how.  Not just this part of the
+	// program, but the entire change is.  The code now works
+	// with no significant problems.  I guss The "problem" I 
+	// wrote above was caused by the PDFThumbTrimmer's 
+	// behaviour that its GetLocation returns E_PENDING *and*
+	// its QueryInterface(IID_IRunnableTask) returns E_NOINTERFACE,
+	// where Windows Explorer apparently couldn't handle.
+#endif
 	return hr;
 }
 
@@ -142,3 +170,29 @@ STDMETHODIMP PDFThumbTrimmer::Extract(HBITMAP *phBmpImage)
 	return m_parent->Extract(phBmpImage);
 #endif
 }
+
+STDMETHODIMP_(ULONG) PDFThumbTrimmer::IsRunning()
+{
+	return m_this_as_runnable_task->IsRunning();
+}
+
+STDMETHODIMP PDFThumbTrimmer::Run()
+{
+	return m_this_as_runnable_task->Run();
+}
+
+STDMETHODIMP PDFThumbTrimmer::Kill(BOOL fUnused)
+{
+	return m_this_as_runnable_task->Kill(fUnused);
+}
+
+STDMETHODIMP PDFThumbTrimmer::Resume()
+{
+	return m_this_as_runnable_task->Resume();
+}
+
+STDMETHODIMP PDFThumbTrimmer::Suspend()
+{
+	return m_this_as_runnable_task->Suspend();
+}
+
