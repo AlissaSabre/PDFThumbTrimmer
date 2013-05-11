@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PDFThumbTrimmer64", "PDFThu
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test32", "test32\test32.vcxproj", "{CE05B37A-89EE-4602-B829-E936F6B15C65}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "purge", "purge\purge.vcxproj", "{BA1D51C2-9E3B-47F8-8A53-6537D6D59C0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -48,6 +50,16 @@ Global
 		{CE05B37A-89EE-4602-B829-E936F6B15C65}.Release|Mixed Platforms.ActiveCfg = Release|Win32
 		{CE05B37A-89EE-4602-B829-E936F6B15C65}.Release|Win32.ActiveCfg = Release|Win32
 		{CE05B37A-89EE-4602-B829-E936F6B15C65}.Release|x64.ActiveCfg = Release|Win32
+		{BA1D51C2-9E3B-47F8-8A53-6537D6D59C0A}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{BA1D51C2-9E3B-47F8-8A53-6537D6D59C0A}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{BA1D51C2-9E3B-47F8-8A53-6537D6D59C0A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BA1D51C2-9E3B-47F8-8A53-6537D6D59C0A}.Debug|Win32.Build.0 = Debug|Win32
+		{BA1D51C2-9E3B-47F8-8A53-6537D6D59C0A}.Debug|x64.ActiveCfg = Debug|Win32
+		{BA1D51C2-9E3B-47F8-8A53-6537D6D59C0A}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{BA1D51C2-9E3B-47F8-8A53-6537D6D59C0A}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{BA1D51C2-9E3B-47F8-8A53-6537D6D59C0A}.Release|Win32.ActiveCfg = Release|Win32
+		{BA1D51C2-9E3B-47F8-8A53-6537D6D59C0A}.Release|Win32.Build.0 = Release|Win32
+		{BA1D51C2-9E3B-47F8-8A53-6537D6D59C0A}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
