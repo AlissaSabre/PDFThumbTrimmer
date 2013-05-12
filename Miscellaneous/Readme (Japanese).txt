@@ -1,5 +1,5 @@
 Alissa's PDF Thumbnail Trmmer
-                                   2011-10-15  Alissa Sabre
+                                   2013-5-7  Alissa Sabre
 
 ******************************************************************
 *                                                                *
@@ -127,8 +127,7 @@ Windowsでは、全てのフォルダが32ビットなので、この点を気にする必要はあり
 ません。
 
 Alissa's PDF Thumbnail Trimmerは小さなプログラムです。ディスクの空きは
-100kバイトも必要ありません。（因みに、インストールされるもっとも大きな
-ファイルはアンインストーラーだったりします。:-）
+200KB程度あれば十分です。
 
 4.2 アンインストール
 
@@ -157,8 +156,9 @@ Adobe Readerを更新すると、Alissa's PDF Thumbnail Trimmerが動作しなくな
 
 Alissa's PDF Thumbnail Trimmerのソースファイルは、バイナリ配布自体には
 含まれませんが、別途公開しています。これを書いている時点では、ソースファ
-イルは Github でホストされており、以下の URL でダウンロードできます:
+イルは Github でホストされており、以下の URL にあります:
 
+    https://github.com/AlissaSabre/PDFThumbTrimmer
 
 5. 結び
 
