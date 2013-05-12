@@ -7,6 +7,11 @@ static const WCHAR THUMBNAIL_CACHE[] = L"Thumbnail Cache";
 #define ROOT_NAME_LENGTH 4
 typedef WCHAR RootName[ROOT_NAME_LENGTH];
 
+// roots holds a list of root paths of all available
+// fixed drives on the system.  An empty string (i.e.,
+// RootName array whose first WCHAR is L'\0') 
+// indicates the end of the list.  The system is
+// assumed to have up to MAX_DRIVES drives.
 #define MAX_DRIVES 26
 static RootName roots[MAX_DRIVES + 1];
 
@@ -29,11 +34,10 @@ static void init_roots()
 	{
 		if (drive_bits & bit)
 		{
-			LPWSTR const p = *r;
-
-			p[0] = (WCHAR)('A' + drv);
-			p[1] = L':';
-			p[2] = L'\\';
+			LPWSTR p = *r;
+			*p++ = (WCHAR)('A' + drv);
+			*p++ = L':';
+			*p++ = L'\\';
 
 			UINT type = GetDriveTypeW(p);
 			if (type == DRIVE_FIXED || type == DRIVE_RAMDISK)
@@ -108,9 +112,17 @@ static void purge()
 	hKeyEVC = NULL;
 }
 
+// Notify shell that the files' icons/thumbnails may be changed.
+// It makes Windows shell to discard its on-memory thumbnail cache.
+static void refresh()
+{
+	SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, NULL, NULL);
+}
+
 int main()
 {
 	init_roots();
 	purge();
+	refresh();
 	return 0;
 }

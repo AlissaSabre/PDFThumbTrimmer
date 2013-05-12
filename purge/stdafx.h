@@ -11,3 +11,4 @@
 
 #include <Windows.h>
 #include <EmptyVC.h>
+#include <ShlObj.h>

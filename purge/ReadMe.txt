@@ -1,40 +1,11 @@
-========================================================================
-    CONSOLE APPLICATION : purge Project Overview
-========================================================================
+purge is a Windows command line tool that purges the thumbnail caches.
+The installer of Alissa's PDF Thumbnail Trimmer will use it so that
+the users see the new thumbnails immediately after the installation.
 
-AppWizard has created this purge application for you.
+This command invokes the system's standard Disk Cleanup Handler for
+desktop thumbnails to discard the persistent caches on all fixed
+drives, then calls SHChangeNotify to let shell discard its on-memory
+caches.  This two step process ensures that the newly installed
+thumbnail handler is called and that the users see the updated
+thumbnails soon.
 
-This file contains a summary of what you will find in each of the files that
-make up your purge application.
-
-
-purge.vcxproj
-    This is the main project file for VC++ projects generated using an Application Wizard.
-    It contains information about the version of Visual C++ that generated the file, and
-    information about the platforms, configurations, and project features selected with the
-    Application Wizard.
-
-purge.vcxproj.filters
-    This is the filters file for VC++ projects generated using an Application Wizard. 
-    It contains information about the association between the files in your project 
-    and the filters. This association is used in the IDE to show grouping of files with
-    similar extensions under a specific node (for e.g. ".cpp" files are associated with the
-    "Source Files" filter).
-
-purge.cpp
-    This is the main application source file.
-
-/////////////////////////////////////////////////////////////////////////////
-Other standard files:
-
-StdAfx.h, StdAfx.cpp
-    These files are used to build a precompiled header (PCH) file
-    named purge.pch and a precompiled types file named StdAfx.obj.
-
-/////////////////////////////////////////////////////////////////////////////
-Other notes:
-
-AppWizard uses "TODO:" comments to indicate parts of the source code you
-should add to or customize.
-
-/////////////////////////////////////////////////////////////////////////////

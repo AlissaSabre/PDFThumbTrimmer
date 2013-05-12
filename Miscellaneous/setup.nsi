@@ -97,8 +97,8 @@ ShowUnInstDetails hide
 
 !include x64.nsh
 
-# SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, NULL, NULL);
-!define SHChangeNotify "System::Call 'shell32.dll::SHChangeNotify(i, i, i, i) v (0x08000000, 0, 0, 0)'"
+;# SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, NULL, NULL);
+;!define SHChangeNotify "System::Call 'shell32.dll::SHChangeNotify(i, i, i, i) v (0x08000000, 0, 0, 0)'"
 
 LangString RegisterMessage ${LANG_ENGLISH}  "Register: ${PRODUCT_NAME}"
 LangString RegisterMessage ${LANG_JAPANESE} "“o˜^: ${PRODUCT_NAME}"
@@ -111,6 +111,8 @@ Section "MainSection" SEC01
 ${If} ${RunningX64}
   File "..\x64\Release\PDFThumbTrimmer64.dll"
 ${EndIf}
+
+  File "..\Release\purge.exe"
 
   File "${PRODUCT_README_EN}"
 ${If} $LANGUAGE == ${LANG_JAPANESE}
@@ -161,7 +163,8 @@ Section -Post
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Readme" "$INSTDIR\$(LocalizedReadme)"
 
-  ${SHChangeNotify}
+; ${SHChangeNotify}
+  ExecWait '"$INSTDIR\purge.exe"'
 
 ; ; Always show the readme (release note) without asking...
 ; ExecShell "open" "$INSTDIR\$(LocalizedReadme)"
@@ -193,13 +196,15 @@ Section Uninstall
   SetRegView 32
 
   ; Let the Shell to know the change.
-  ${SHChangeNotify}
+; ${SHChangeNotify}
+  ExecWait '"$INSTDIR\purge.exe"'
 
   ; Remove the installed files and directory.
   Delete "$INSTDIR\${PRODUCT_README_EN}"
   Delete "$INSTDIR\${PRODUCT_README_JA}"
   Delete "$INSTDIR\PDFThumbTrimmer.dll"
   Delete "$INSTDIR\PDFThumbTrimmer64.dll"
+  Delete "$INSTDIR\purge.exe"
   Delete "$INSTDIR\uninst.exe"
   RMDir "$INSTDIR"
 

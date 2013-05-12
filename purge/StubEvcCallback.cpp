@@ -3,8 +3,10 @@
 
 // This is just a sort of a stub.  Methods does
 // minimum things.  A significant shoddy is its 
-// life-cycle management.  It is not a real COM 
-// object after all.
+// life-cycle management; its AddRef and Release
+// don't work.  We need to manage instances by
+// ourselves.  It is not a real COM object after 
+// all.
 
 STDMETHODIMP StubEvcCallback::QueryInterface(REFIID riid, LPVOID *ppvObject)
 {
