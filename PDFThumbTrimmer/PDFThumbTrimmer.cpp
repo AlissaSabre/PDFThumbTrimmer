@@ -116,11 +116,11 @@ STDMETHODIMP PDFThumbTrimmer::Extract(HBITMAP *phBmpImage)
 	HRESULT hr;
 	*phBmpImage = NULL;
 
-	HBITMAP hBmp1;
+	HBITMAP hBmp1 = NULL;
 	hr = m_parent->Extract(&hBmp1);
 	if (FAILED(hr)) return hr;
 
-	HBITMAP hBmp2;
+	HBITMAP hBmp2 = NULL;
 	hr = trim(hBmp1, &hBmp2);
 	if (FAILED(hr))
 	{

@@ -116,7 +116,10 @@ static void purge()
 // It makes Windows shell to discard its on-memory thumbnail cache.
 static void refresh()
 {
-	SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, NULL, NULL);
+	Sleep(5000);
+	SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST | SHCNF_FLUSH | SHCNF_NOTIFYRECURSIVE, NULL, NULL);
+	//Sleep(500);
+	//SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, NULL, NULL);
 }
 
 int main()
